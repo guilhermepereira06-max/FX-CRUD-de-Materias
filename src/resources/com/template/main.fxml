@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #F4F9F4;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.template.MainController">
+   <children>
+      <Button fx:id="btnAlterar" layoutX="512.0" layoutY="70.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="72.0" style="-fx-background-color: #F4F6F8; -fx-border-color: #121212;" text="Alterar">
+         <font>
+            <Font name="Arial Black" size="12.0" />
+         </font></Button>
+      <Button fx:id="btnExcluir" layoutX="512.0" layoutY="103.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="72.0" style="-fx-background-color: #FCA5A5; -fx-border-color: #121212;" text="Excluir" textFill="#fc0000">
+         <font>
+            <Font name="Arial Black" size="12.0" />
+         </font></Button>
+      <Button fx:id="BtnSalvar" layoutX="512.0" layoutY="136.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" style="-fx-background-color: #E2F1E7; -fx-border-color: #121212;" text="Salvar" textFill="#16ae23">
+         <font>
+            <Font name="Arial Black" size="12.0" />
+         </font></Button>
+      <Label layoutX="14.0" layoutY="91.0" text="Nome:" textFill="#11837a">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font></Label>
+      <Label layoutX="14.0" layoutY="120.0" text="Professor:" textFill="#11837a">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font></Label>
+      <TableView fx:id="tblMateria" layoutX="85.0" layoutY="165.0" prefHeight="200.0" prefWidth="401.0" style="-fx-background-color: #E2F0D9;">
+        <columns>
+          <TableColumn fx:id="Colid" prefWidth="75.0" style="-fx-background-color: #F8F1E3;" text="Id" />
+          <TableColumn fx:id="Colnome" prefWidth="75.0" style="-fx-background-color: #F8F1E3;" text="Nome" />
+            <TableColumn fx:id="Colprofessor" prefWidth="75.0" style="-fx-background-color: #F8F1E3;" text="Professor" />
+            <TableColumn fx:id="Colnota_media" prefWidth="75.0" style="-fx-background-color: #F8F1E3;" text="Nota Media" />
+            <TableColumn fx:id="Colaula_semana" prefWidth="97.0" style="-fx-background-color: #F8F1E3;" text="AulasSemana" />
+        </columns>
+      </TableView>
+      <TextField fx:id="txtNome" layoutX="77.0" layoutY="85.0" style="-fx-border-color: #121212; -fx-background-color: #E2F1E7;">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font></TextField>
+      <TextField fx:id="txtProfessor" layoutX="77.0" layoutY="115.0" style="-fx-border-color: #121212; -fx-background-color: #E2F1E7;">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font></TextField>
+      <Label layoutX="237.0" layoutY="91.0" prefHeight="15.0" prefWidth="72.0" text="Nota Media:" textFill="#11837a">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font></Label>
+      <Label layoutX="237.0" layoutY="124.0" text="Aulas na semana:" textFill="#11837a">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font></Label>
+      <TextField fx:id="txtNotaMedia" layoutX="336.0" layoutY="87.0" style="-fx-border-color: #121212; -fx-background-color: #E2F1E7;">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font></TextField>
+      <TextField fx:id="txtAulasSemana" layoutX="336.0" layoutY="120.0" style="-fx-border-color: #121212; -fx-background-color: #E2F1E7;">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font></TextField>
+      <Label layoutX="192.0" layoutY="12.0" text="MATERIAS" textFill="#0f766e">
+         <font>
+            <Font name="Arial Black" size="32.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
