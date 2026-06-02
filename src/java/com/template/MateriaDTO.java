@@ -31,19 +31,19 @@ public class MateriaDTO {
         this.professor = professor;
     }
 
-    public double getNota_media() {
+    public double getNotaMedia() {
         return nota_media;
     }
 
-    public void setNota_media(double nota_media) {
+    public void setNotaMedia(double nota_media) {
         this.nota_media = nota_media;
     }
 
-    public int getAulas_semana() {
+    public int getAulasSemana() {
         return aulas_semana;
     }
 
-    public void setAulas_semana(int aulas_semana) {
+    public void setAulasSemana(int aulas_semana) {
         this.aulas_semana = aulas_semana;
     }
     @Override
