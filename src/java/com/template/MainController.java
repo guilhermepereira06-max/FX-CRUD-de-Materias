@@ -13,7 +13,7 @@ import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
 
 public class MainController {
-    // Controles ligados ao FXML
+
     @FXML private Button btnSalvar;
     @FXML private TextField txtNome;
     @FXML private TextField txtProfessor;
@@ -26,18 +26,18 @@ public class MainController {
     @FXML private TableColumn<MateriaDTO,String> colId;
     @FXML private TableColumn<MateriaDTO,String> colNome;
     @FXML private TableColumn<MateriaDTO,String> colProfessor;
-    @FXML private TableColumn<MateriaDTO,String> colNota_media; // fx:id no FXML
-    @FXML private TableColumn<MateriaDTO,String> colAula_semana; // fx:id no FXML
+    @FXML private TableColumn<MateriaDTO,String> colNota_media;
+    @FXML private TableColumn<MateriaDTO,String> colAula_semana;
 
     @FXML
     private void carregarMateria(){
-        // Recupera dados do DAO e popula a TableView
+        // Recupera os dados e coloca na tabela
         MateriaDAO objMateriaDAO = new MateriaDAO();
         ArrayList<MateriaDTO> listaMateria = objMateriaDAO.listarMaterias();
         tblMateria.setItems(FXCollections.observableArrayList(listaMateria));
     }
 
-    // Salva um novo registro lido dos campos
+    // Criar uma nova materia
     @FXML
     private void btnSalvarAction(ActionEvent event){
         String nome = txtNome.getText();
@@ -54,11 +54,12 @@ public class MainController {
         MateriaDAO objMateriaDAO = new MateriaDAO();
         objMateriaDAO.cadastrarMateria(objMateriaDTO);
 
-        // Atualiza a tabela após a inserção e limpa os campos
+        // Atualiza a tabela e limpa os campos
         carregarMateria();
         btnLimparAction(null);
     }
 
+    //Limpando os campos de texto
     @FXML
     private void btnLimparAction(ActionEvent event){
         txtNome.clear();
@@ -67,28 +68,21 @@ public class MainController {
         txtAulasSemana.clear();
     }
 
+    //Botao que exclui a materia selecionada
     @FXML
     private void btnExcluirAction(ActionEvent event){
         MateriaDTO selecionada = tblMateria.getSelectionModel().getSelectedItem();
-        // se nenhuma linha selecionada, não tenta deletar (evita NPE)
-        if (selecionada == null) {
-            System.err.println("Nenhuma matéria selecionada para exclusão.");
-            return;
-        }
         MateriaDAO objMateriaDAO = new MateriaDAO();
         objMateriaDAO.deletarMateria(selecionada.getId());
+
         carregarMateria();
         btnLimparAction(null);
     }
 
+    //botao que altera a materia selecionada
     @FXML
     public void btnAlterarAction(ActionEvent event){
         MateriaDTO selecionada = tblMateria.getSelectionModel().getSelectedItem();
-        // valida seleção antes de tentar atualizar
-        if (selecionada == null) {
-            System.err.println("Nenhuma matéria selecionada para alterar.");
-            return;
-        }
 
         String nome = txtNome.getText();
         String professor = txtProfessor.getText();
@@ -131,7 +125,6 @@ public class MainController {
         colNota_media.setCellValueFactory(new PropertyValueFactory<>("notaMedia"));
         colAula_semana.setCellValueFactory(new PropertyValueFactory<>("aulasSemana"));
 
-        // Carrega dados iniciais na tabela
         carregarMateria();
     }
 }

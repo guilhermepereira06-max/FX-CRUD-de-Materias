@@ -40,8 +40,8 @@ public class MateriaDAO {
                 materia.setAulasSemana(rs.getInt("aulas_semana"));
                 listaMaterias.add(materia);
             }
-        } catch (SQLException e) {
-            logger.log(Level.SEVERE,"Erro ao listar materia",e);
+        } catch (SQLException excecao) {
+            logger.log(Level.SEVERE,"Erro ao listar materia",excecao);
         }
         return listaMaterias;
     }
