@@ -8,14 +8,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
-
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
-public class MainController
-{
+public class MainController {
+    // Controles ligados ao FXML
     @FXML private Button btnSalvar;
     @FXML private TextField txtNome;
     @FXML private TextField txtProfessor;
@@ -28,22 +26,24 @@ public class MainController
     @FXML private TableColumn<MateriaDTO,String> colId;
     @FXML private TableColumn<MateriaDTO,String> colNome;
     @FXML private TableColumn<MateriaDTO,String> colProfessor;
-    @FXML private TableColumn<MateriaDTO,String> colNota_media;
-    @FXML private TableColumn<MateriaDTO,String> colAulas_semana;
+    @FXML private TableColumn<MateriaDTO,String> colNota_media; // fx:id no FXML
+    @FXML private TableColumn<MateriaDTO,String> colAula_semana; // fx:id no FXML
 
     @FXML
     private void carregarMateria(){
+        // Recupera dados do DAO e popula a TableView
         MateriaDAO objMateriaDAO = new MateriaDAO();
         ArrayList<MateriaDTO> listaMateria = objMateriaDAO.listarMaterias();
         tblMateria.setItems(FXCollections.observableArrayList(listaMateria));
     }
 
+    // Salva um novo registro lido dos campos
     @FXML
     private void btnSalvarAction(ActionEvent event){
         String nome = txtNome.getText();
         String professor = txtProfessor.getText();
-        double notaMedias = Double.parseDouble( txtNotaMedia.getText());
-        int aulasSemana = Integer.parseInt( txtAulasSemana.getText());
+        double notaMedias = Double.parseDouble(txtNotaMedia.getText());
+        int aulasSemana = Integer.parseInt(txtAulasSemana.getText());
 
         MateriaDTO objMateriaDTO = new MateriaDTO();
         objMateriaDTO.setNome(nome);
@@ -54,7 +54,9 @@ public class MainController
         MateriaDAO objMateriaDAO = new MateriaDAO();
         objMateriaDAO.cadastrarMateria(objMateriaDTO);
 
+        // Atualiza a tabela após a inserção e limpa os campos
         carregarMateria();
+        btnLimparAction(null);
     }
 
     @FXML
@@ -67,59 +69,69 @@ public class MainController
 
     @FXML
     private void btnExcluirAction(ActionEvent event){
-        MateriaDTO objMateriaDTO = new MateriaDTO();
-        int id= objMateriaDTO.getId();
-
+        MateriaDTO selecionada = tblMateria.getSelectionModel().getSelectedItem();
+        // se nenhuma linha selecionada, não tenta deletar (evita NPE)
+        if (selecionada == null) {
+            System.err.println("Nenhuma matéria selecionada para exclusão.");
+            return;
+        }
         MateriaDAO objMateriaDAO = new MateriaDAO();
-        objMateriaDAO.deletarMateria(id);
-
+        objMateriaDAO.deletarMateria(selecionada.getId());
         carregarMateria();
-
+        btnLimparAction(null);
     }
 
     @FXML
     public void btnAlterarAction(ActionEvent event){
+        MateriaDTO selecionada = tblMateria.getSelectionModel().getSelectedItem();
+        // valida seleção antes de tentar atualizar
+        if (selecionada == null) {
+            System.err.println("Nenhuma matéria selecionada para alterar.");
+            return;
+        }
+
         String nome = txtNome.getText();
         String professor = txtProfessor.getText();
-        double notaMedias = Double.parseDouble( txtNotaMedia.getText());
-        int aulasSemana = Integer.parseInt( txtAulasSemana.getText());
+        double notaMedias = Double.parseDouble(txtNotaMedia.getText());
+        int aulasSemana = Integer.parseInt(txtAulasSemana.getText());
 
         MateriaDTO objMateriaDTO = new MateriaDTO();
-        objMateriaDTO.getId();
+        objMateriaDTO.setId(selecionada.getId());
         objMateriaDTO.setNome(nome);
         objMateriaDTO.setProfessor(professor);
         objMateriaDTO.setNotaMedia(notaMedias);
         objMateriaDTO.setAulasSemana(aulasSemana);
 
-
         MateriaDAO objMateriaDAO = new MateriaDAO();
         objMateriaDAO.alterarMateria(objMateriaDTO);
 
         carregarMateria();
-
+        btnLimparAction(null);
     }
+
     @FXML
-    private void carregarCampos(){
+    private void carregarCampos(MouseEvent event){
         MateriaDTO objMateriaDTO = tblMateria.getSelectionModel().getSelectedItem();
 
-        if(objMateriaDTO!= null){
-
+        if(objMateriaDTO != null){
+            // preenche campos com valores da linha selecionada
             txtNome.setText(objMateriaDTO.getNome());
             txtProfessor.setText(objMateriaDTO.getProfessor());
-            txtNotaMedia.setText(String.valueOf( objMateriaDTO.getNotaMedia()));
-            txtAulasSemana.setText(String.valueOf( objMateriaDTO.getAulasSemana()));
+            txtNotaMedia.setText(String.valueOf(objMateriaDTO.getNotaMedia()));
+            txtAulasSemana.setText(String.valueOf(objMateriaDTO.getAulasSemana()));
         }
     }
-    private void initialize(URL url, ResourceBundle rb)
 
-    {
-        System.out.println("FXML loaded successfully!");
+    @FXML
+    public void initialize() {
+        // Configura as colunas da tabela com os nomes das propriedades do DTO
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colNome.setCellValueFactory(new PropertyValueFactory<>("Nome"));
-        colProfessor.setCellValueFactory(new PropertyValueFactory<>("Professor"));
-        colNota_media.setCellValueFactory(new PropertyValueFactory<>("mota_media"));
-        colAulas_semana.setCellValueFactory(new PropertyValueFactory<>("aulas_semana"));
+        colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colProfessor.setCellValueFactory(new PropertyValueFactory<>("professor"));
+        colNota_media.setCellValueFactory(new PropertyValueFactory<>("notaMedia"));
+        colAula_semana.setCellValueFactory(new PropertyValueFactory<>("aulasSemana"));
 
+        // Carrega dados iniciais na tabela
         carregarMateria();
     }
 }

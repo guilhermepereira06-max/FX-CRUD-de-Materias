@@ -1,5 +1,10 @@
 package com.template;
 
+/**
+ * DTO (Data Transfer Object) que representa uma matéria.
+ * Campos privados com getters/setters - usado pela View (TableView)
+ * e pelo DAO para persistência.
+ */
 public class MateriaDTO {
     private int id;
     private String nome;
