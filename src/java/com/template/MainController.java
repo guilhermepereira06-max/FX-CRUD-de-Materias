@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 public class MainController {
 
+    @FXML private Button btnSalvar;
     @FXML private TextField txtNome;
     @FXML private TextField txtProfessor;
     @FXML private TextField txtNotaMedia;
@@ -23,7 +24,6 @@ public class MainController {
     @FXML private Button btnExcluir;
     @FXML private Button btnAlterar;
     @FXML private Button btnLimpar;
-    @FXML private Button btnSalvar;
     @FXML private TableView<MateriaDTO> tblMateria;
     @FXML private TableColumn<MateriaDTO,String> colId;
     @FXML private TableColumn<MateriaDTO,String> colNome;
@@ -31,9 +31,21 @@ public class MainController {
     @FXML private TableColumn<MateriaDTO,String> colNota_media;
     @FXML private TableColumn<MateriaDTO,String> colAula_semana;
 
-    // Nova injeção para UI/UX: Label de mensagens ao usuário
     @FXML private Label lblMensagem;
-
+    /*
+    * UX:
+    * Reabilita o botão salvar para novos cadastros
+    * Verificação de campos vazios
+    * Desabilita o Salvar durante edição para evitar cadastros acidentais
+    * Impede que o usuário digite letras onde só vão números
+    * MENSAGEM
+    *
+    * UI :
+    * Placholders
+    * Não habilita os botões excluir e editar não ficam desabilitados se não tiver nada selecionado
+    * MOSTRAR CAMPOS OBRIGATORIOS
+    * Imagem/logo
+    * */
     @FXML
     private void carregarMateria(){
         MateriaDAO objMateriaDAO = new MateriaDAO();
@@ -43,7 +55,7 @@ public class MainController {
 
     @FXML
     private void btnSalvarAction(ActionEvent event){
-        if (!validarCampos()) return; // UX: Validação de campos vazios
+        if (!validarCampos()) return;
 
         MateriaDTO objMateriaDTO = new MateriaDTO();
         objMateriaDTO.setNome(txtNome.getText());
@@ -54,7 +66,7 @@ public class MainController {
         MateriaDAO objMateriaDAO = new MateriaDAO();
         objMateriaDAO.cadastrarMateria(objMateriaDTO);
 
-        exibirMensagem("Matéria salva com sucesso!", Color.GREEN);
+        exibirMensagem("Matéria salva com sucesso! ", "#1e5b4f");
         carregarMateria();
         btnLimparAction(null);
     }
@@ -65,11 +77,10 @@ public class MainController {
         txtProfessor.clear();
         txtNotaMedia.clear();
         txtAulasSemana.clear();
-        
-        tblMateria.getSelectionModel().clearSelection(); // UI/UX: Remove o foco da tabela
-        btnSalvar.setDisable(false); // UX: Reabilita o botão salvar para novos cadastros
-        
-        // Limpa a mensagem caso tenha sido chamada pelo botão "Limpar"
+
+        tblMateria.getSelectionModel().clearSelection();
+        btnSalvar.setDisable(false);
+
         if (event != null && lblMensagem != null) {
             lblMensagem.setText("");
         }
@@ -82,7 +93,7 @@ public class MainController {
             MateriaDAO objMateriaDAO = new MateriaDAO();
             objMateriaDAO.deletarMateria(selecionada.getId());
 
-            exibirMensagem("Matéria excluída com sucesso!", Color.GREEN);
+            exibirMensagem("Matéria excluída com sucesso!", "#c62828");
             carregarMateria();
             btnLimparAction(null);
         }
@@ -93,7 +104,7 @@ public class MainController {
         MateriaDTO selecionada = tblMateria.getSelectionModel().getSelectedItem();
 
         if (selecionada != null) {
-            if (!validarCampos()) return; // UX: Validação de campos vazios
+            if (!validarCampos()) return;
 
             MateriaDTO objMateriaDTO = new MateriaDTO();
             objMateriaDTO.setId(selecionada.getId());
@@ -105,7 +116,7 @@ public class MainController {
             MateriaDAO objMateriaDAO = new MateriaDAO();
             objMateriaDAO.alterarMateria(objMateriaDTO);
 
-            exibirMensagem("Matéria alterada com sucesso!", Color.GREEN);
+            exibirMensagem("Matéria alterada com sucesso!", "#b78103");
             carregarMateria();
             btnLimparAction(null);
         }
@@ -121,7 +132,6 @@ public class MainController {
             txtNotaMedia.setText(String.valueOf(objMateriaDTO.getNotaMedia()));
             txtAulasSemana.setText(String.valueOf(objMateriaDTO.getAulasSemana()));
 
-            // UX: Desabilita o Salvar durante edição para evitar cadastros acidentais
             btnSalvar.setDisable(true);
         }
     }
@@ -134,42 +144,37 @@ public class MainController {
         colNota_media.setCellValueFactory(new PropertyValueFactory<>("notaMedia"));
         colAula_semana.setCellValueFactory(new PropertyValueFactory<>("aulasSemana"));
 
-        // UI: Expande as colunas para preencher 100% da largura da tabela
         tblMateria.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-        // UX: Impede que o usuário digite letras onde só vão números
         restringirEntradaNumerica(txtNotaMedia);
         restringirEntradaNumerica(txtAulasSemana);
 
-        // UX: Botões Excluir e Alterar só ficam ativos se tiver algo selecionado na tabela
         btnExcluir.disableProperty().bind(tblMateria.getSelectionModel().selectedItemProperty().isNull());
         btnAlterar.disableProperty().bind(tblMateria.getSelectionModel().selectedItemProperty().isNull());
 
         carregarMateria();
     }
 
-    // ================= MÉTODOS AUXILIARES (Boas Práticas de MVC/Código Limpo) ================= //
 
     private boolean validarCampos() {
         if (txtNome.getText().trim().isEmpty() || txtProfessor.getText().trim().isEmpty() ||
-            txtNotaMedia.getText().trim().isEmpty() || txtAulasSemana.getText().trim().isEmpty()) {
-            
-            exibirMensagem("Atenção: Preencha todos os campos obrigatórios!", Color.RED);
+                txtNotaMedia.getText().trim().isEmpty() || txtAulasSemana.getText().trim().isEmpty()) {
+
+            exibirMensagem("Atenção: Preencha todos os campos obrigatórios!", "#b78103");
             return false;
         }
         return true;
     }
 
-    private void exibirMensagem(String texto, Color cor) {
+    private void exibirMensagem(String texto, String corCss) {
         if (lblMensagem != null) {
             lblMensagem.setText(texto);
-            lblMensagem.setTextFill(cor);
+            lblMensagem.setStyle("-fx-text-fill: " + corCss + "; -fx-font-weight: bold;");
         }
     }
 
     private void restringirEntradaNumerica(TextField campo) {
         campo.textProperty().addListener((observable, oldValue, newValue) -> {
-            // Remove tudo que não for número (0-9) ou ponto (.)
             if (!newValue.matches("\\d*(\\.\\d*)?")) {
                 campo.setText(newValue.replaceAll("[^\\d.]", ""));
             }

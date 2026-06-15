@@ -5,6 +5,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -22,28 +24,28 @@
          <font>
             <Font name="Arial Black" size="12.0" />
          </font></Button>
-      <Label layoutX="14.0" layoutY="91.0" text="Nome:" textFill="#11837a">
+      <Label layoutX="8.0" layoutY="91.0" text="Nome:" textFill="#11837a">
          <font>
             <Font name="Arial" size="12.0" />
          </font></Label>
-      <Label layoutX="14.0" layoutY="120.0" text="Professor:" textFill="#11837a">
+      <Label layoutX="8.0" layoutY="120.0" text="Professor:" textFill="#11837a">
          <font>
             <Font name="Arial" size="12.0" />
          </font></Label>
-      <TableView fx:id="tblMateria" layoutX="85.0" layoutY="165.0" onMouseClicked="#carregarCampos" prefHeight="200.0" prefWidth="401.0" style="-fx-background-color: #E2F0D9;">
+      <TableView fx:id="tblMateria" layoutX="85.0" layoutY="165.0" onMouseClicked="#carregarCampos" prefHeight="200.0" prefWidth="401.0" style="-fx-background-color: #A9DFBF; -fx-selection-bar: #1e5b4f; -fx-selection-bar-non-focused: #1e5b4f;">
         <columns>
-          <TableColumn fx:id="colId" prefWidth="75.0" style="-fx-background-color: #F8F1E3;" text="Id" />
-          <TableColumn fx:id="colNome" prefWidth="75.0" style="-fx-background-color: #F8F1E3;" text="Nome" />
-            <TableColumn fx:id="colProfessor" prefWidth="75.0" style="-fx-background-color: #F8F1E3;" text="Professor" />
-            <TableColumn fx:id="colNota_media" prefWidth="75.0" style="-fx-background-color: #F8F1E3;" text="Nota Media" />
-            <TableColumn fx:id="colAula_semana" prefWidth="97.0" style="-fx-background-color: #F8F1E3;" text="AulasSemana" />
+          <TableColumn fx:id="colId" prefWidth="75.0" style="-fx-background-color: #E8DCC4;" text="Id" />
+          <TableColumn fx:id="colNome" prefWidth="75.0" style="-fx-background-color: #A1887F;" text="Nome" />
+            <TableColumn fx:id="colProfessor" prefWidth="75.0" style="-fx-background-color: #A1887F;" text="Professor" />
+            <TableColumn fx:id="colNota_media" prefWidth="75.0" style="-fx-background-color: #A1887F;" text="Nota Media" />
+            <TableColumn fx:id="colAula_semana" prefWidth="97.0" style="-fx-background-color: #A1887F;" text="AulasSemana" />
         </columns>
       </TableView>
-      <TextField fx:id="txtNome" layoutX="77.0" layoutY="85.0" style="-fx-border-color: #121212; -fx-background-color: #E2F1E7;">
+      <TextField fx:id="txtNome" layoutX="77.0" layoutY="85.0" promptText="Digite o nome da matéria" style="-fx-border-color: #121212; -fx-background-color: #E2F1E7;">
          <font>
             <Font name="Arial" size="12.0" />
          </font></TextField>
-      <TextField fx:id="txtProfessor" layoutX="77.0" layoutY="115.0" style="-fx-border-color: #121212; -fx-background-color: #E2F1E7;">
+      <TextField fx:id="txtProfessor" layoutX="77.0" layoutY="115.0" promptText="Digite o nome do professor " style="-fx-border-color: #121212; -fx-background-color: #E2F1E7;">
          <font>
             <Font name="Arial" size="12.0" />
          </font></TextField>
@@ -55,11 +57,11 @@
          <font>
             <Font name="Arial" size="12.0" />
          </font></Label>
-      <TextField fx:id="txtNotaMedia" layoutX="336.0" layoutY="87.0" style="-fx-border-color: #121212; -fx-background-color: #E2F1E7;">
+      <TextField fx:id="txtNotaMedia" layoutX="341.0" layoutY="87.0" promptText="Digite a Nota media" style="-fx-border-color: #121212; -fx-background-color: #E2F1E7;">
          <font>
             <Font name="Arial" size="12.0" />
          </font></TextField>
-      <TextField fx:id="txtAulasSemana" layoutX="336.0" layoutY="120.0" style="-fx-border-color: #121212; -fx-background-color: #E2F1E7;">
+      <TextField fx:id="txtAulasSemana" layoutX="341.0" layoutY="120.0" promptText="Digite aulas na semana " style="-fx-border-color: #121212; -fx-background-color: #E2F1E7;">
          <font>
             <Font name="Arial" size="12.0" />
          </font></TextField>
@@ -73,5 +75,40 @@
             <Font name="Arial Black" size="12.0" />
          </font>
       </Button>
+      <Label layoutX="224.0" layoutY="142.0" prefHeight="15.0" prefWidth="122.0" text="* : campo obrigatorio" textFill="#d02a2a">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="50.0" layoutY="90.0" prefHeight="15.0" prefWidth="5.0" text="* " textFill="#d02a2a">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="69.0" layoutY="119.0" prefHeight="15.0" prefWidth="5.0" text="* " textFill="#d02a2a">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="305.0" layoutY="92.0" prefHeight="15.0" prefWidth="5.0" text="* " textFill="#d02a2a">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="333.0" layoutY="124.0" prefHeight="15.0" prefWidth="5.0" text="* " textFill="#d02a2a">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblMensagem" layoutX="98.0" layoutY="52.0" prefHeight="15.0" prefWidth="383.0" textFill="#f3ff0c">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="80.0" fitWidth="122.0" layoutX="3.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Captura%20de%20tela%202026-06-15%20195047.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
