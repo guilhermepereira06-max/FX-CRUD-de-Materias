@@ -14,7 +14,6 @@ import java.util.ArrayList;
 
 public class MainController {
 
-    @FXML private Button btnSalvar;
     @FXML private TextField txtNome;
     @FXML private TextField txtProfessor;
     @FXML private TextField txtNotaMedia;
@@ -22,6 +21,7 @@ public class MainController {
     @FXML private Button btnExcluir;
     @FXML private Button btnAlterar;
     @FXML private Button btnLimpar;
+    @FXML private Button btnSalvar;
     @FXML private TableView<MateriaDTO> tblMateria;
     @FXML private TableColumn<MateriaDTO,String> colId;
     @FXML private TableColumn<MateriaDTO,String> colNome;
