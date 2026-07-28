@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #F4F9F4;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.template.MainController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #F4F9F4;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.template.controller.MainController">
    <children>
       <Button fx:id="btnAlterar" layoutX="512.0" layoutY="70.0" mnemonicParsing="false" onAction="#btnAlterarAction" prefHeight="27.0" prefWidth="72.0" style="-fx-background-color: #F4F6F8; -fx-border-color: #121212;" text="Alterar">
          <font>
@@ -35,10 +35,10 @@
       <TableView fx:id="tblMateria" layoutX="85.0" layoutY="165.0" onMouseClicked="#carregarCampos" prefHeight="200.0" prefWidth="401.0" style="-fx-background-color: #A9DFBF; -fx-selection-bar: #1e5b4f; -fx-selection-bar-non-focused: #1e5b4f;">
         <columns>
           <TableColumn fx:id="colId" prefWidth="75.0" style="-fx-background-color: #E8DCC4;" text="Id" />
-          <TableColumn fx:id="colNome" prefWidth="75.0" style="-fx-background-color: #A1887F;" text="Nome" />
-            <TableColumn fx:id="colProfessor" prefWidth="75.0" style="-fx-background-color: #A1887F;" text="Professor" />
-            <TableColumn fx:id="colNota_media" prefWidth="75.0" style="-fx-background-color: #A1887F;" text="Nota Media" />
-            <TableColumn fx:id="colAula_semana" prefWidth="97.0" style="-fx-background-color: #A1887F;" text="AulasSemana" />
+          <TableColumn fx:id="colNome" prefWidth="75.0" style="-fx-background-color: #E8DCC4;" text="Nome" />
+            <TableColumn fx:id="colProfessor" prefWidth="75.0" style="-fx-background-color: #E8DCC4;" text="Professor" />
+            <TableColumn fx:id="colNota_media" prefWidth="75.0" style="-fx-background-color: #E8DCC4;" text="Nota Media" />
+            <TableColumn fx:id="colAula_semana" prefWidth="97.0" style="-fx-background-color: #E8DCC4;" text="AulasSemana" />
         </columns>
       </TableView>
       <TextField fx:id="txtNome" layoutX="77.0" layoutY="85.0" promptText="Digite o nome da matéria" style="-fx-border-color: #121212; -fx-background-color: #E2F1E7;">

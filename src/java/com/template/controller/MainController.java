@@ -1,5 +1,8 @@
-package com.template;
+package com.template.controller;
 
+import com.template.util.DialogUtil;
+import com.template.model.dao.MateriaDAO;
+import com.template.model.dto.MateriaDTO;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,12 +13,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
 public class MainController {
-
     @FXML private Button btnSalvar;
     @FXML private TextField txtNome;
     @FXML private TextField txtProfessor;
@@ -30,7 +31,6 @@ public class MainController {
     @FXML private TableColumn<MateriaDTO,String> colProfessor;
     @FXML private TableColumn<MateriaDTO,String> colNota_media;
     @FXML private TableColumn<MateriaDTO,String> colAula_semana;
-
     @FXML private Label lblMensagem;
     /*
     * UX:
@@ -66,7 +66,7 @@ public class MainController {
         MateriaDAO objMateriaDAO = new MateriaDAO();
         objMateriaDAO.cadastrarMateria(objMateriaDTO);
 
-        exibirMensagem("Matéria salva com sucesso! ", "#1e5b4f");
+        DialogUtil.mensagemConfirmacao("Matéria salva com sucesso! ");
         carregarMateria();
         btnLimparAction(null);
     }
@@ -84,6 +84,7 @@ public class MainController {
         if (event != null && lblMensagem != null) {
             lblMensagem.setText("");
         }
+        DialogUtil.mensagemInfo("Os campos estão limpos! ");
     }
 
     @FXML
@@ -93,7 +94,7 @@ public class MainController {
             MateriaDAO objMateriaDAO = new MateriaDAO();
             objMateriaDAO.deletarMateria(selecionada.getId());
 
-            exibirMensagem("Matéria excluída com sucesso!", "#c62828");
+            DialogUtil.mensagemConfirmacao("Matéria excluída com sucesso!");
             carregarMateria();
             btnLimparAction(null);
         }
@@ -116,7 +117,7 @@ public class MainController {
             MateriaDAO objMateriaDAO = new MateriaDAO();
             objMateriaDAO.alterarMateria(objMateriaDTO);
 
-            exibirMensagem("Matéria alterada com sucesso!", "#b78103");
+            DialogUtil.mensagemConfirmacao("Matéria alterada com sucesso!");
             carregarMateria();
             btnLimparAction(null);
         }
@@ -160,17 +161,10 @@ public class MainController {
         if (txtNome.getText().trim().isEmpty() || txtProfessor.getText().trim().isEmpty() ||
                 txtNotaMedia.getText().trim().isEmpty() || txtAulasSemana.getText().trim().isEmpty()) {
 
-            exibirMensagem("Atenção: Preencha todos os campos obrigatórios!", "#b78103");
+            DialogUtil.mensagemErro("Atenção: Preencha todos os campos obrigatórios!");
             return false;
         }
         return true;
-    }
-
-    private void exibirMensagem(String texto, String corCss) {
-        if (lblMensagem != null) {
-            lblMensagem.setText(texto);
-            lblMensagem.setStyle("-fx-text-fill: " + corCss + "; -fx-font-weight: bold;");
-        }
     }
 
     private void restringirEntradaNumerica(TextField campo) {
