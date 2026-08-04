@@ -13,6 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import static com.template.validator.MateriaValidador.*;
 
 import java.util.ArrayList;
 
@@ -32,20 +33,7 @@ public class MainController {
     @FXML private TableColumn<MateriaDTO,String> colNota_media;
     @FXML private TableColumn<MateriaDTO,String> colAula_semana;
     @FXML private Label lblMensagem;
-    /*
-    * UX:
-    * Reabilita o botão salvar para novos cadastros
-    * Verificação de campos vazios
-    * Desabilita o Salvar durante edição para evitar cadastros acidentais
-    * Impede que o usuário digite letras onde só vão números
-    * MENSAGEM
-    *
-    * UI :
-    * Placholders
-    * Não habilita os botões excluir e editar não ficam desabilitados se não tiver nada selecionado
-    * MOSTRAR CAMPOS OBRIGATORIOS
-    * Imagem/logo
-    * */
+
     @FXML
     private void carregarMateria(){
         MateriaDAO objMateriaDAO = new MateriaDAO();
@@ -55,7 +43,7 @@ public class MainController {
 
     @FXML
     private void btnSalvarAction(ActionEvent event){
-        if (!validarCampos()) return;
+        if (!validarCampos(txtNome.getText(),txtProfessor.getText(),txtNotaMedia.getText(),txtAulasSemana.getText())) return;
 
         MateriaDTO objMateriaDTO = new MateriaDTO();
         objMateriaDTO.setNome(txtNome.getText());
@@ -105,7 +93,7 @@ public class MainController {
         MateriaDTO selecionada = tblMateria.getSelectionModel().getSelectedItem();
 
         if (selecionada != null) {
-            if (!validarCampos()) return;
+            if (!validarCampos(txtNome.getText(),txtProfessor.getText(),txtNotaMedia.getText(),txtAulasSemana.getText())) return;
 
             MateriaDTO objMateriaDTO = new MateriaDTO();
             objMateriaDTO.setId(selecionada.getId());
@@ -157,21 +145,5 @@ public class MainController {
     }
 
 
-    private boolean validarCampos() {
-        if (txtNome.getText().trim().isEmpty() || txtProfessor.getText().trim().isEmpty() ||
-                txtNotaMedia.getText().trim().isEmpty() || txtAulasSemana.getText().trim().isEmpty()) {
 
-            DialogUtil.mensagemErro("Atenção: Preencha todos os campos obrigatórios!");
-            return false;
-        }
-        return true;
-    }
-
-    private void restringirEntradaNumerica(TextField campo) {
-        campo.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*(\\.\\d*)?")) {
-                campo.setText(newValue.replaceAll("[^\\d.]", ""));
-            }
-        });
-    }
 }

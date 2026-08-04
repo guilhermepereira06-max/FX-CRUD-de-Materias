@@ -10,6 +10,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static com.template.util.DialogUtil.*;
+
 public class MateriaDAO {
     private static final Logger logger = Logger.getLogger(MateriaDAO.class.getName());
 
@@ -23,6 +26,7 @@ public class MateriaDAO {
             ps.execute();
         } catch (SQLException excecao) {
             logger.log(Level.SEVERE, "Erro ao cadastrar materia", excecao);
+            mensagemErro("Erro ao cadastrar a materia");
         }
     }
 
@@ -45,6 +49,7 @@ public class MateriaDAO {
             }
         } catch (SQLException excecao) {
             logger.log(Level.SEVERE,"Erro ao listar materia",excecao);
+            mensagemErro("Erro ao listar as materias");
         }
         return listaMaterias;
     }
@@ -59,6 +64,7 @@ public class MateriaDAO {
             ps.execute();
         } catch (SQLException excecao) {
             logger.log(Level.SEVERE, "Erro ao alterar materia", excecao);
+            mensagemErro("Erro ao alterar esta materia");
         }
     }
 
@@ -69,6 +75,7 @@ public class MateriaDAO {
             ps.execute();
         } catch (SQLException excecao) {
             logger.log(Level.SEVERE, "Erro ao deletar materia", excecao);
+            mensagemErro("Erro ao deletar esta materia");
         }
     }
 }
