@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import static com.template.validator.MateriaValidador.*;
+import static com.template.helper.MainControllerHelper.*;
 
 import java.util.ArrayList;
 
@@ -43,86 +44,24 @@ public class MainController {
 
     @FXML
     private void btnSalvarAction(ActionEvent event){
-        if (!validarCampos(txtNome.getText(),txtProfessor.getText(),txtNotaMedia.getText(),txtAulasSemana.getText())) return;
-
-        MateriaDTO objMateriaDTO = new MateriaDTO();
-        objMateriaDTO.setNome(txtNome.getText());
-        objMateriaDTO.setProfessor(txtProfessor.getText());
-        objMateriaDTO.setNotaMedia(Double.parseDouble(txtNotaMedia.getText()));
-        objMateriaDTO.setAulasSemana(Integer.parseInt(txtAulasSemana.getText()));
-
-        MateriaDAO objMateriaDAO = new MateriaDAO();
-        objMateriaDAO.cadastrarMateria(objMateriaDTO);
-
-        DialogUtil.mensagemConfirmacao("Matéria salva com sucesso! ");
-        carregarMateria();
-        btnLimparAction(null);
+        Salvar(txtNome.getText(),txtProfessor.getText(),txtNotaMedia.getText(),txtAulasSemana.getText());
     }
 
     @FXML
     private void btnLimparAction(ActionEvent event){
-        txtNome.clear();
-        txtProfessor.clear();
-        txtNotaMedia.clear();
-        txtAulasSemana.clear();
-
-        tblMateria.getSelectionModel().clearSelection();
-        btnSalvar.setDisable(false);
-
-        if (event != null && lblMensagem != null) {
-            lblMensagem.setText("");
-        }
-        DialogUtil.mensagemInfo("Os campos estão limpos! ");
+        Limpar(null);
     }
 
     @FXML
     private void btnExcluirAction(ActionEvent event){
         MateriaDTO selecionada = tblMateria.getSelectionModel().getSelectedItem();
-        if (selecionada != null) {
-            MateriaDAO objMateriaDAO = new MateriaDAO();
-            objMateriaDAO.deletarMateria(selecionada.getId());
-
-            DialogUtil.mensagemConfirmacao("Matéria excluída com sucesso!");
-            carregarMateria();
-            btnLimparAction(null);
-        }
+        Excluir(selecionada.getId());
     }
 
     @FXML
     public void btnAlterarAction(ActionEvent event){
         MateriaDTO selecionada = tblMateria.getSelectionModel().getSelectedItem();
-
-        if (selecionada != null) {
-            if (!validarCampos(txtNome.getText(),txtProfessor.getText(),txtNotaMedia.getText(),txtAulasSemana.getText())) return;
-
-            MateriaDTO objMateriaDTO = new MateriaDTO();
-            objMateriaDTO.setId(selecionada.getId());
-            objMateriaDTO.setNome(txtNome.getText());
-            objMateriaDTO.setProfessor(txtProfessor.getText());
-            objMateriaDTO.setNotaMedia(Double.parseDouble(txtNotaMedia.getText()));
-            objMateriaDTO.setAulasSemana(Integer.parseInt(txtAulasSemana.getText()));
-
-            MateriaDAO objMateriaDAO = new MateriaDAO();
-            objMateriaDAO.alterarMateria(objMateriaDTO);
-
-            DialogUtil.mensagemConfirmacao("Matéria alterada com sucesso!");
-            carregarMateria();
-            btnLimparAction(null);
-        }
-    }
-
-    @FXML
-    private void carregarCampos(MouseEvent event){
-        MateriaDTO objMateriaDTO = tblMateria.getSelectionModel().getSelectedItem();
-
-        if(objMateriaDTO != null){
-            txtNome.setText(objMateriaDTO.getNome());
-            txtProfessor.setText(objMateriaDTO.getProfessor());
-            txtNotaMedia.setText(String.valueOf(objMateriaDTO.getNotaMedia()));
-            txtAulasSemana.setText(String.valueOf(objMateriaDTO.getAulasSemana()));
-
-            btnSalvar.setDisable(true);
-        }
+        Alterar(selecionada.getId());
     }
 
     @FXML
