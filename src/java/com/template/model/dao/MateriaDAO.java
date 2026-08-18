@@ -53,6 +53,7 @@ public class MateriaDAO {
         }
         return listaMaterias;
     }
+
     public void alterarMateria(MateriaDTO materia) {
         String sql = "UPDATE materia SET nome = ?, professor = ?, nota_media = ?, aulas_semana = ? WHERE id = ?";
         try (Connection c = new Conexao().conectaDB(); PreparedStatement ps = c.prepareStatement(sql)) {

@@ -6,16 +6,13 @@ import javafx.collections.FXCollections;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
+
+
 import java.util.List;
 
 public class Carregamento {
 
-    public static void carregarCamposMainController(
-            TableView<MateriaDTO> tabela,
-            TextField txtNome,
-            TextField txtProfessor,
-            TextField txtNotaMedia,
-            TextField txtAulasSemana) {
+    public static void carregarCamposMainController(TableView<MateriaDTO> tabela, TextField txtNome, TextField txtProfessor, TextField txtNotaMedia, TextField txtAulasSemana) {
 
         MateriaDTO objMateriaDTO = tabela.getSelectionModel().getSelectedItem();
 
@@ -27,11 +24,9 @@ public class Carregamento {
         }
     }
 
-
     public static void carregarMateria(TableView<MateriaDTO> tblMateria) {
         MateriaDAO objMateriaDAO = new MateriaDAO();
         List<MateriaDTO> listaMateria = objMateriaDAO.listarMaterias();
-
         tblMateria.setItems(FXCollections.observableArrayList(listaMateria));
     }
 }

@@ -32,7 +32,7 @@
          <font>
             <Font name="Arial" size="12.0" />
          </font></Label>
-      <TableView fx:id="tblMateria" layoutX="85.0" layoutY="165.0" onMouseClicked="#carregarCampos" prefHeight="200.0" prefWidth="401.0" style="-fx-background-color: #A9DFBF; -fx-selection-bar: #1e5b4f; -fx-selection-bar-non-focused: #1e5b4f;">
+      <TableView fx:id="tblMateria" layoutX="85.0" layoutY="165.0"  prefHeight="200.0" prefWidth="401.0" style="-fx-background-color: #A9DFBF; -fx-selection-bar: #1e5b4f; -fx-selection-bar-non-focused: #1e5b4f;">
         <columns>
           <TableColumn fx:id="colId" prefWidth="75.0" style="-fx-background-color: #E8DCC4;" text="Id" />
           <TableColumn fx:id="colNome" prefWidth="75.0" style="-fx-background-color: #E8DCC4;" text="Nome" />
