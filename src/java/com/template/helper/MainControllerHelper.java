@@ -4,7 +4,6 @@ import com.template.model.dao.MateriaDAO;
 import com.template.model.dto.MateriaDTO;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-
 import static com.template.carregamento.Carregamento.*;
 import static com.template.util.DialogUtil.*;
 import static com.template.validator.MateriaValidador.*;
@@ -43,7 +42,6 @@ public class MainControllerHelper {
         if (id != 0) {
             MateriaDAO objMateriaDAO = new MateriaDAO();
             objMateriaDAO.deletarMateria(id);
-
             mensagemConfirmacao("Matéria excluída com sucesso!");
             carregarMateria(tblMateria);
             Limpar(txtNome, txtProfessor, txtNotaMedia, txtAulasSemana, tblMateria);

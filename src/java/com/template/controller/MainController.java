@@ -5,7 +5,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-
 import static com.template.carregamento.Carregamento.*;
 import static com.template.helper.MainControllerHelper.*;
 import static com.template.util.DialogUtil.*;
@@ -49,14 +48,7 @@ public class MainController {
     public void btnAlterarAction(ActionEvent event) {
         MateriaDTO selecionada = tblMateria.getSelectionModel().getSelectedItem();
         if (selecionada != null) {
-            Alterar(
-                    selecionada.getId(),
-                    txtNome.getText(),
-                    txtProfessor.getText(),
-                    txtNotaMedia.getText(),
-                    txtAulasSemana.getText(),
-                    tblMateria,
-                    txtNome, txtProfessor, txtNotaMedia, txtAulasSemana
+            Alterar(selecionada.getId(),txtNome.getText(), txtProfessor.getText(), txtNotaMedia.getText(), txtAulasSemana.getText(), tblMateria, txtNome, txtProfessor, txtNotaMedia, txtAulasSemana
             );
         }
     }

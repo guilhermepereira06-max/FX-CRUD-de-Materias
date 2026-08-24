@@ -6,8 +6,6 @@ import javafx.collections.FXCollections;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-
-
 import java.util.List;
 
 public class Carregamento {
