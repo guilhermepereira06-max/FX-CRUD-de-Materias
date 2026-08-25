@@ -11,7 +11,7 @@ import static com.template.validator.MateriaValidador.*;
 public class MainControllerHelper {
 
     public static void Salvar(String Nome, String Professor, String NotaMedia, String AulasSemana, TableView<MateriaDTO> tblMateria, TextField txtNome, TextField txtProfessor, TextField txtNotaMedia, TextField txtAulasSemana) {
-        if (!validarCampos(Nome, Professor, NotaMedia, AulasSemana)) {
+        if (!validarMateria(Nome, Professor, NotaMedia, AulasSemana)) {
             mensagemErro("Atenção: Preencha todos os campos obrigatórios corretamente!");
             return;
         }
@@ -50,7 +50,7 @@ public class MainControllerHelper {
 
     public static void Alterar(int id, String Nome, String Professor, String NotaMedia, String AulasSemana, TableView<MateriaDTO> tblMateria, TextField txtNome, TextField txtProfessor, TextField txtNotaMedia, TextField txtAulasSemana) {
         if (id != 0) {
-            if (!validarCampos(Nome, Professor, NotaMedia, AulasSemana)) {
+            if (!validarMateria(Nome, Professor, NotaMedia, AulasSemana)) {
                 mensagemErro("Atenção: Preencha todos os campos obrigatórios corretamente!");
                 return;
             }
